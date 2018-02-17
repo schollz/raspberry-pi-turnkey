@@ -64,7 +64,6 @@ source ~/.profile
 
 ```
 git clone https://github.com/schollz/raspberry-pi-turnkey.git
-chmod +x raspberry-pi-turnkey/*.sh
 ```
 
 ## Install Hostapd
