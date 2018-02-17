@@ -166,7 +166,7 @@ $ sudo dd bs=4M if=~/2018-turnkey.img of=/dev/mmcblk0 conv=fsync status=progress
 
 # Roadmap
 
-- [ ] Add messaging system
+- [ ] Add messaging system to send the LAN IP address once online
 - [ ] Add startup hooks for when it is online (for now just [edit these lines](https://github.com/schollz/raspberry-pi-turnkey/blob/master/startup.py#L70))
 
 # License 
