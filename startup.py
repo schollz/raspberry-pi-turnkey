@@ -34,7 +34,7 @@ def signin():
     with open('status.json','w') as f:
         f.write(json.dumps({'status':'disconnected'}))
     subprocess.Popen(["./disable_ap.sh"])
-    return render_template('index.html', message="You are signed in. Please wait 2 minutes and then check your email for the link.")
+    return render_template('index.html', message="Please wait 2 minutes and check to see if 'ConnectToConnect' is still available. If it is not, then it is online.")
 
 if __name__ == "__main__":
     time.sleep(60)
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         s['status'] = 'hostapd'
         with open('status.json','w') as f:
             f.write(json.dumps(s))    
-        subprocess.call("./enable_ap.sh", shell=True)
+        subprocess.Popen("./enable_ap.sh")
     elif s['status'] == 'connected':
         pass
     else:
