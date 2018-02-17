@@ -20,6 +20,8 @@ _Note:_ The Raspberry Pi is **not** a fast computer. When you see the AP and con
 
 The following are the step-by-step instructions for how I create the turnkey image. If you don't want to download the image I created above (I don't blame you), then follow these to make one exactly the same.
 
+These instructions assume you are using Ubuntu. You can use Windows/OS X for most of these steps, except step #4 which requires resizing.
+
 ## 1. Flash Raspbian Stretch Lite
 
 Starting from version [Raspbian Stretch Lite](https://www.raspberrypi.org/downloads/raspbian/) version 2017-11-29.
