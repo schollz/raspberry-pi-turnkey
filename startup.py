@@ -43,7 +43,7 @@ def signin():
     return render_template('index.html', message="Please wait 2 minutes and check to see if 'ConnectToConnect' is still available. If it is not, then it is online.")
 
 if __name__ == "__main__":
-    time.sleep(60)
+    time.sleep(15)
     # get status
     s = {'status':'disconnected'}
     if not os.path.isfile('status.json'):
