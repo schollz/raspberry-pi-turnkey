@@ -2,7 +2,7 @@
 
 Have you ever wanted to startup a Raspberry Pi *without having to SSH or attach a keyboard* to add your WiFi credentials? This is particularly useful when you are making a Raspberry Pi that needs to be deployed somewhere where supplying the credentials via SSH or attaching a keyboard isn't an option. 
 
-You can [follow the instructions below](#instructions-to-create-image) to create a turnkey image, or you can just download my latest one at [https://raspberry-pi-turnkey.schollz.com/2018-02-17-turnkey.img](https://raspberry-pi-turnkey.schollz.com/2018-02-17-turnkey.img) (3GB). 
+You can [follow the instructions below](#instructions-to-create-image) to create a turnkey image, or you can just download my latest one at [https://raspberry-pi-turnkey.schollz.com/2018-02-17-turnkey.img](https://raspberry-pi-turnkey.schollz.com/2018-02-17-turnkey.img) (3GB) and [follow the typical flashing instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md). 
 
 # Usage 
 
