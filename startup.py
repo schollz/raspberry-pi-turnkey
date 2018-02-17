@@ -59,6 +59,8 @@ if __name__ == "__main__":
         s['status'] = 'connected'
         print("got connected to " + matches[0])
 
+    with open('status.json','w') as f:
+        f.write(json.dumps(s))   
     if s['status'] == 'disconnected':
         s['status'] = 'hostapd'
         with open('status.json','w') as f:
