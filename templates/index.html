@@ -1,0 +1,49 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sign In</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/floating-labels.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <form class="form-signin" action="/signin" method="POST">
+      <div class="text-center mb-4">
+<!--         <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+ -->
+       <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+        {% if message %}<p>{{ message }}</p>{% endif %}
+      </div>
+
+        {% if message %}{% else %}
+      <div class="form-label-group">
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputEmail">Email address</label>
+      </div>
+
+      <div class="form-label-group">
+        <input name="ssid" id="inputSSID" class="form-control" placeholder="SSID" required>
+        <label for="inputPassword">SSID</label>
+      </div>
+
+
+      <div class="form-label-group">
+        <input id="inputPassword" name="password" class="form-control" placeholder="SSID Password" required>
+        <label for="inputPassword">Password</label>
+      </div>
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      {% endif %}
+      <p class="mt-5 mb-3 text-muted text-center"><a href="https://github.com/schollz/raspberry-pi-turnkey">Raspberry Pi Turnkey</a></p>
+    </form>
+  </body>
