@@ -2,6 +2,8 @@
 
 Have you ever wanted to startup a Raspberry Pi *without having to SSH or attach a keyboard* to add your WiFi credentials? This is particularly useful when you are making a Raspberry Pi that needs to be deployed somewhere where supplying the credentials via SSH or attaching a keyboard isn't an option. 
 
+# Usage 
+
 These instructions allow you to create a flashable image that when booted on a Pi will allow a user to connect to a login screen via an access point hosted by the Pi. To connect a new Pi to the internet, you simply sign in to a WiFi AP named "ConnectToConnect" (password same) and navigate to `192.168.4.1` where you'll see a login form.
 
 <p align="center">
@@ -9,6 +11,8 @@ These instructions allow you to create a flashable image that when booted on a P
 </p>
 
 When the WiFi credentials are entered onto the login form, the Pi will modify its internal `wpa_supplicant` to conform to them so that it will be connected to the net.
+
+_Note:_ The Raspberry Pi is **not** a fast computer. When you see the AP and connect to it, it may take up to a minute for the page at `192.168.4.1` to appear. Also, if you enter the wrong WiFi credentials, it will have to reboot twice to reset the Pi to allow you to enter the credentials again. So try to enter them right the first time!
 
 # 1. Flash Raspbian Stretch Lite
 
@@ -100,6 +104,8 @@ echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' | sudo tee --append /etc/default/
 
 sudo systemctl start hostapd && sudo systemctl start dnsmasq
 ```
+
+(_Sidenote:_ I save an image `intermediate.img` at this point so its easy to go back.)
 
 Then open up the `root` crontab
 
