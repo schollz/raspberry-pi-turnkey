@@ -1,6 +1,6 @@
 # Instructions for making a turn-key image
 
-## Flash Raspbian Stretch Lite
+# 1. Flash Raspbian Stretch Lite
 
 Starting from version [Raspbian Stretch Lite](https://www.raspberrypi.org/downloads/raspbian/) version 2017-11-29.
 
@@ -16,7 +16,9 @@ After flashing, for the first time use, just plug in ethernet and you can SSH in
 touch /media/YOURUSER/boot/ssh
 ```
 
-## Add libraries onto the Pi
+# 2. Install libraries onto the Raspberry Pi
+
+## Basic libraries
 
 ```
 sudo apt-get update
@@ -24,7 +26,7 @@ sudo apt-get dist-upgrade -y
 sudo apt-get install -y dnsmasq hostapd vim python3-flask git
 ```
 
-## Install node 
+## Install node (optional)
 
 ```
 wget https://nodejs.org/dist/v8.9.4/node-v8.9.4-linux-armv6l.tar.xz
@@ -37,7 +39,7 @@ echo 'export PATH=$NODEJS_HOME/bin:$PATH' >> ~/.profile
 source ~/.profile
 ```
 
-## Install Go
+## Install Go (optional)
 
 ```
 wget https://dl.google.com/go/go1.10.linux-armv6l.tar.gz
@@ -48,13 +50,13 @@ echo 'export GOPATH=$HOME/go' >>  ~/.profile
 source ~/.profile
 ```
 
-# Install base station
+## Install base station
 
 ```
 git clone https://github.com/schollz/raspberry-pi-turnkey.git
 ```
 
-# Install Hostapd
+## Install Hostapd
 
 ```
 sudo systemctl stop dnsmasq && sudo systemctl stop hostapd
@@ -89,10 +91,18 @@ echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' | sudo tee --append /etc/default/
 sudo systemctl start hostapd && sudo systemctl start dnsmasq
 ```
 
-Add to cron
+Then open up the `root` crontab
+
+```
+$ sudo crontab -e
+```
+
+And add the following line:
 
 ```
 @reboot cd /home/pi/raspberry-pi-turnkey && /usr/bin/sudo /usr/bin/python3 startup.py
 ```
 
+
+# 3. Resize Raspberry Pi SD image
 
