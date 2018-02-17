@@ -16,6 +16,14 @@ When the WiFi credentials are entered onto the login form, the Pi will modify it
 
 _Note:_ The Raspberry Pi is **not** a fast computer. When you see the AP and connect to it, it may take up to a minute for the page at `192.168.4.1` to appear. Also, if you enter the wrong WiFi credentials, it will have to reboot twice to reset the Pi to allow you to enter the credentials again. So try to enter them right the first time!
 
+# How does it work?
+
+When the Pi starts up it runs a Python script, `startup.py`. This script first checks if the Pi is online (by looking for an SSID in `iwconfig wlan0`). If the Pi is online, the script sets the status as "connected" (saved to disk in `status.json`).
+
+If the Pi is not online, it will check the status. The initial status is "disconnected". When "disconnected" the Pi will uncomment the configuration files for `hostapd` and `dnsmasq`. The access point configuration is nearly identical [to as outlined in this tutorial](https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md). Then the Pi sets the status as "hostapd" and reboots itself.
+
+When the status is "hostapd" then the script will bind to port 80 and serve a web form at `192.168.4.1`. Once you connect to the AP this web form will be available and it will recieve input. Once the server recieves input, it sets the credentials in `wpa_supplicant.conf` and comments out the configuration file for `hostapd` and `dnsmasq` so that the AP doesn't interfere, and then reboots. When it reboots it will see if it gets online and set the status as "connected" or "disconnected". Then it repeats the steps above (i.e. doing nothing if connected, or restarting the AP if disconnected).
+
 # Instructions to create image
 
 The following are the step-by-step instructions for how I create the turnkey image. If you don't want to download the image I created above (I don't blame you), then follow these to make one exactly the same.
