@@ -147,6 +147,8 @@ The Pi will reboot itself twice, please be patient when it does this. At this po
 
 ## 3. Resize Raspberry Pi SD image
 
+If you don't want to resize the image, you can just write the entire image file to your computer and use that from here on. If you do want to resize (especially useful if you are installing on a 16GB card and want to flash onto a smaller card), follow these instructions.
+
 Put the newly made image into Ubuntu and do
 
 ```
@@ -159,23 +161,25 @@ Right click on the SD card image and do "Unmount". Then right click on the image
 Then you can copy the image to your computer using the following command
 
 ```
-$ sudo dd if=/dev/mmcblk0 of=~/2018-turnkey.img bs=1M count=2400 status=progress
+$ sudo dd if=/dev/mmcblk0 of=/some/place/turnkey.img bs=1M count=2400 status=progress
 ```
 
-Again `/dev/mmcblk0` is your SD card which you can determine using `fdisk -l`. 
+Again `/dev/mmcblk0` is your SD card which you can determine using `fdisk -l`.  The location of the image, `/some/place/`, should be set by you.
 
-## 4. Test the resized image
+## 4. Test the turnkey image
 
-The new image will be in `~/2018-turnkey.img` which you can use to flash other SD cards. To test it out, get a new SD card and do:
+The new image will be in `/some/place/2018-turnkey.img` which you can use to flash other SD cards. To test it out, get a new SD card and do:
 
 ```
-$ sudo dd bs=4M if=~/2018-turnkey.img of=/dev/mmcblk0 conv=fsync status=progress
+$ sudo dd bs=4M if=/some/place/turnkey.img of=/dev/mmcblk0 conv=fsync status=progress
 ```
 
 # Roadmap
 
 - [ ] Add messaging system to send the LAN IP address once online
 - [ ] Add startup hooks for when it is online (for now just [edit these lines](https://github.com/schollz/raspberry-pi-turnkey/blob/master/startup.py#L70))
+
+If you'd like to contribute, please do send a PR!
 
 # License 
 
