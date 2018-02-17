@@ -1,12 +1,12 @@
-# Instructions for making a turn-key image
+# Raspberry Pi Turnkey
 
-Have you ever wanted to startup a Raspberry Pi without having to SSH into it to add your WiFi credentials? This is particularly useful when you are making a Raspberry Pi that needs to be deployed somewhere where supplying the credentials via SSHing or attaching a keyboard isn't an option. 
+Have you ever wanted to startup a Raspberry Pi *without having to SSH or attach a keyboard* to add your WiFi credentials? This is particularly useful when you are making a Raspberry Pi that needs to be deployed somewhere where supplying the credentials via SSH or attaching a keyboard isn't an option. 
 
-These instructions allow you to create a flashable image that when booted on a Pi will allow a user to connect to a login screen via an access point hosted by the Pi.
+These instructions allow you to create a flashable image that when booted on a Pi will allow a user to connect to a login screen via an access point hosted by the Pi. To connect a new Pi to the internet, you simply sign in to a WiFi AP named "ConnectToConnect" (password same) and navigate to `192.168.4.1` where you'll see a login form.
 
 ![Login screen](https://i.imgur.com/NeWmrlk.png)
 
-When the WiFi credentials are entered on this screen, the Pi will modify its internal `wpa_supplicant` to conform to them so that it will be connected to the net.
+When the WiFi credentials are entered onto the login form, the Pi will modify its internal `wpa_supplicant` to conform to them so that it will be connected to the net.
 
 # 1. Flash Raspbian Stretch Lite
 

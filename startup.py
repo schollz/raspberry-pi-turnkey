@@ -15,6 +15,12 @@ network={
     psk="_password_"
 }"""
 
+wpa_conf_default = """country=GB
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+"""
+
+
 @app.route('/')
 def main():
     return render_template('index.html')
@@ -56,7 +62,9 @@ if __name__ == "__main__":
     if s['status'] == 'disconnected':
         s['status'] = 'hostapd'
         with open('status.json','w') as f:
-            f.write(json.dumps(s))    
+            f.write(json.dumps(s))   
+        with open('wpa.conf','w') as f:
+            f.write(wpa_conf_default)
         subprocess.Popen("./enable_ap.sh")
     elif s['status'] == 'connected':
         ## ADD YOUR STARTUP COMMANDS HERE
