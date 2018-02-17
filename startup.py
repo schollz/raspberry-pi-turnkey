@@ -59,6 +59,7 @@ if __name__ == "__main__":
             f.write(json.dumps(s))    
         subprocess.Popen("./enable_ap.sh")
     elif s['status'] == 'connected':
+        ## ADD YOUR STARTUP COMMANDS HERE
         pass
     else:
         app.run(host="0.0.0.0",port=80)
