@@ -2,19 +2,25 @@
 
 Have you ever wanted to startup a Raspberry Pi *without having to SSH or attach a keyboard* to add your WiFi credentials? This is particularly useful when you are making a Raspberry Pi that needs to be deployed somewhere where supplying the credentials via SSH or attaching a keyboard isn't an option. 
 
+You can [follow the instructions below](#instructions-to-create-image) to create a turnkey image, or you can just download my latest one at [https://raspberry-pi-turnkey.schollz.com/2018-02-17-turnkey.img](https://raspberry-pi-turnkey.schollz.com/2018-02-17-turnkey.img) (3GB). 
+
 # Usage 
 
-These instructions allow you to create a flashable image that when booted on a Pi will allow a user to connect to a login screen via an access point hosted by the Pi. To connect a new Pi to the internet, you simply sign in to a WiFi AP named "ConnectToConnect" (password same) and navigate to `192.168.4.1` where you'll see a login form.
+Once you boot the Pi with this image, you will see a WiFi AP named "ConnectToConnect" (password same). Connect to it and navigate to `192.168.4.1` where you'll see a login form.
 
 <p align="center">
   <img src="https://i.imgur.com/NeWmrlk.png"/>
 </p>
 
-When the WiFi credentials are entered onto the login form, the Pi will modify its internal `wpa_supplicant` to conform to them so that it will be connected to the net.
+When the WiFi credentials are entered onto the login form, the Pi will modify its internal `wpa_supplicant` to conform to them so that it will be connected to the net. The Pi will then reboot itself using those WiFi credentials. If the credentials are not correct, then the Pi will reboot back into the AP mode to allow you to re-enter them again.
 
 _Note:_ The Raspberry Pi is **not** a fast computer. When you see the AP and connect to it, it may take up to a minute for the page at `192.168.4.1` to appear. Also, if you enter the wrong WiFi credentials, it will have to reboot twice to reset the Pi to allow you to enter the credentials again. So try to enter them right the first time!
 
-# 1. Flash Raspbian Stretch Lite
+# Instructions to create image
+
+The following are the step-by-step instructions for how I create the turnkey image. If you don't want to download the image I created above (I don't blame you), then follow these to make one exactly the same.
+
+## 1. Flash Raspbian Stretch Lite
 
 Starting from version [Raspbian Stretch Lite](https://www.raspberrypi.org/downloads/raspbian/) version 2017-11-29.
 
@@ -30,9 +36,9 @@ After flashing, for the first time use, just plug in ethernet and you can SSH in
 touch /media/YOURUSER/boot/ssh
 ```
 
-# 2. Install libraries onto the Raspberry Pi
+## 2. Install libraries onto the Raspberry Pi
 
-## Basic libraries
+### Basic libraries
 
 ```
 sudo apt-get update
@@ -40,7 +46,7 @@ sudo apt-get dist-upgrade -y
 sudo apt-get install -y dnsmasq hostapd vim python3-flask git
 ```
 
-## Install node (optional)
+### Install node (optional)
 
 ```
 wget https://nodejs.org/dist/v8.9.4/node-v8.9.4-linux-armv6l.tar.xz
@@ -53,7 +59,7 @@ echo 'export PATH=$NODEJS_HOME/bin:$PATH' >> ~/.profile
 source ~/.profile
 ```
 
-## Install Go (optional)
+### Install Go (optional)
 
 ```
 wget https://dl.google.com/go/go1.10.linux-armv6l.tar.gz
@@ -64,13 +70,13 @@ echo 'export GOPATH=$HOME/go' >>  ~/.profile
 source ~/.profile
 ```
 
-## Install base station
+### Install turnkey
 
 ```
 git clone https://github.com/schollz/raspberry-pi-turnkey.git
 ```
 
-## Install Hostapd
+### Install Hostapd
 
 ```
 sudo systemctl stop dnsmasq && sudo systemctl stop hostapd
@@ -119,25 +125,15 @@ And add the following line:
 @reboot cd /home/pi/raspberry-pi-turnkey && /usr/bin/sudo /usr/bin/python3 startup.py
 ```
 
-## Reboot the Pi, twice
+### Reboot the Pi
 
 ```
 $ sudo reboot now
 ```
 
-And then login and
+The Pi will reboot itself twice, please be patient when it does this. At this point you should be able to see the "ConnectToConnect" AP address.
 
-```
-$ sudo reboot now
-```
-
-Now when the Pi starts you can connect to the "ConnectToConnect" network (with password the same as name) and goto `192.168.4.1`. You should see a login screen.
-
-![Login screen](https://i.imgur.com/NeWmrlk.png)
-
-Entering your WiFi credentials into this form will connect your Pi.
-
-# 3. Resize Raspberry Pi SD image
+@# 3. Resize Raspberry Pi SD image
 
 Put the newly made image into Ubuntu and do
 
@@ -156,7 +152,7 @@ $ sudo dd if=/dev/mmcblk0 of=~/2018-turnkey.img bs=1M count=2400 status=progress
 
 Again `/dev/mmcblk0` is your SD card which you can determine using `fdisk -l`. 
 
-# 4. Test the resized image
+## 4. Test the resized image
 
 The new image will be in `~/2018-turnkey.img` which you can use to flash other SD cards. To test it out, get a new SD card and do:
 
