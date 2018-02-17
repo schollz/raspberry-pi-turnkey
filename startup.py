@@ -1,6 +1,7 @@
 import subprocess
 import re
 import json
+import time
 import os.path 
 
 from flask import Flask, request, send_from_directory,jsonify, render_template
@@ -36,6 +37,7 @@ def signin():
     return render_template('index.html', message="You are signed in. Please wait 2 minutes and then check your email for the link.")
 
 if __name__ == "__main__":
+    time.sleep(60)
     # get status
     s = {'status':'disconnected'}
     if not os.path.isfile('status.json'):

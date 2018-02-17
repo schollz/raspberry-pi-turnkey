@@ -1,5 +1,7 @@
 # Instructions for making a turn-key image
 
+Have you ever wanted to startup a Raspberry Pi without having to SSH into it to add your WiFi credentials? This is particularly useful when you are making a Raspberry Pi that needs to be deployed somewhere where supplying the credentials via SSHing or attaching a keyboard isn't an option. 
+
 # 1. Flash Raspbian Stretch Lite
 
 Starting from version [Raspbian Stretch Lite](https://www.raspberrypi.org/downloads/raspbian/) version 2017-11-29.
@@ -54,6 +56,7 @@ source ~/.profile
 
 ```
 git clone https://github.com/schollz/raspberry-pi-turnkey.git
+chmod +x raspberry-pi-turnkey/*.sh
 ```
 
 ## Install Hostapd
@@ -103,6 +106,47 @@ And add the following line:
 @reboot cd /home/pi/raspberry-pi-turnkey && /usr/bin/sudo /usr/bin/python3 startup.py
 ```
 
+## Reboot the Pi, twice
+
+```
+$ sudo reboot now
+```
+
+And then login and
+
+```
+$ sudo reboot now
+```
+
+Now when the Pi starts you can connect to the "ConnectToConnect" network (with password the same as name) and goto `192.168.4.1`. You should see a login screen.
+
+![Login screen](https://i.imgur.com/NeWmrlk.png)
+
+Entering your WiFi credentials into this form will connect your Pi.
 
 # 3. Resize Raspberry Pi SD image
 
+Put the newly made image into Ubuntu and do
+
+```
+$ xhost +local:
+$ sudo gparted-pkexec
+```
+
+Right click on the SD card image and do "Unmount". Then right click on the image and do "Resize/Move" and change the size to `2400`. 
+
+Then you can copy the image to your computer using the following command
+
+```
+$ sudo dd if=/dev/mmcblk0 of=~/2018-turnkey.img bs=1M count=2400 status=progress
+```
+
+Again `/dev/mmcblk0` is your SD card which you can determine using `fdisk -l`. 
+
+# 4. Test the resized image
+
+The new image will be in `~/2018-turnkey.img` which you can use to flash other SD cards. To test it out, get a new SD card and do:
+
+```
+$ sudo dd bs=4M if=~/2018-turnkey.img of=/dev/mmcblk0 conv=fsync status=progress
+```
