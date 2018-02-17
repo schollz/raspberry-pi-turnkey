@@ -40,6 +40,8 @@ $ touch /media/YOURUSER/boot/ssh
 
 ## 2. Install libraries onto the Raspberry Pi
 
+SSH into your Pi using Ethernet, as you will have to disable the WiFi connection when you install `hostapd`.
+
 ### Basic libraries
 
 ```
