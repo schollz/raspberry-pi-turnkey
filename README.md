@@ -4,7 +4,9 @@ Have you ever wanted to startup a Raspberry Pi *without having to SSH or attach 
 
 These instructions allow you to create a flashable image that when booted on a Pi will allow a user to connect to a login screen via an access point hosted by the Pi. To connect a new Pi to the internet, you simply sign in to a WiFi AP named "ConnectToConnect" (password same) and navigate to `192.168.4.1` where you'll see a login form.
 
-![Login screen](https://i.imgur.com/NeWmrlk.png)
+<p align="center">
+  <img src="https://i.imgur.com/NeWmrlk.png"/>
+</p>
 
 When the WiFi credentials are entered onto the login form, the Pi will modify its internal `wpa_supplicant` to conform to them so that it will be connected to the net.
 
