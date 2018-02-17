@@ -163,3 +163,12 @@ The new image will be in `~/2018-turnkey.img` which you can use to flash other S
 ```
 $ sudo dd bs=4M if=~/2018-turnkey.img of=/dev/mmcblk0 conv=fsync status=progress
 ```
+
+# Roadmap
+
+- [ ] Add messaging system
+- [ ] Add startup hooks for when it is online (for now just [edit these lines](https://github.com/schollz/raspberry-pi-turnkey/blob/master/startup.py#L70))
+
+# License 
+
+MIT
