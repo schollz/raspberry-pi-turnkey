@@ -5,7 +5,11 @@ import re
 import json
 import time
 import os.path 
+import subprocess
+import requests
 
+
+import requests
 from flask import Flask, request, send_from_directory,jsonify, render_template
 app = Flask(__name__, static_url_path='')
 
@@ -46,7 +50,7 @@ def signin():
         f.write(json.dumps({'status':'disconnected'}))
     subprocess.Popen(["./disable_ap.sh"])
     piid = open('pi.id','r').read().strip()
-    return render_template('index.html', message="Please wait 2 minutes and check to see if 'ConnectToConnect' is still available. If it is not, then it is online.")
+    return render_template('index.html', message="Please wait 2 minutes to connect. Then your IP address will show up at <a href='https://snaptext.live/{}'>snaptext.live/{}</a>.".format(piid,piid))
 
 if __name__ == "__main__":
     if not os.path.isfile('pi.id'):
@@ -80,7 +84,10 @@ if __name__ == "__main__":
             f.write(wpa_conf_default)
         subprocess.Popen("./enable_ap.sh")
     elif s['status'] == 'connected':
-        ## ADD YOUR STARTUP COMMANDS HERE
-        pass
+        piid = open('pi.id','r').read().strip()
+        result = subprocess.run(['hostname', '-I'], stdout=subprocess.PIPE)
+        ipaddress =  result.stdout.strip().split(b' ')[-1].decode('utf-8')
+        r = requests.post("https://snaptext.live",data={"message":"Your Pi is online at {}".format(ipaddress),"to":piid,"from":"Raspberry Pi Turnkey"})
+        subprocess.Popen("./startup.sh")
     else:
         app.run(host="0.0.0.0",port=80)

@@ -55,7 +55,7 @@ SSH into your Pi using Ethernet, as you will have to disable the WiFi connection
 ```
 $ sudo apt-get update
 $ sudo apt-get dist-upgrade -y
-$ sudo apt-get install -y dnsmasq hostapd vim python3-flask git
+$ sudo apt-get install -y dnsmasq hostapd vim python3-flask python3-requests git
 ```
 
 ### Install node (optional)
@@ -125,10 +125,22 @@ $ sudo systemctl start hostapd && sudo systemctl start dnsmasq
 
 (_Sidenote:_ I save an image `intermediate.img` at this point so its easy to go back.)
 
-Then open up the `root` crontab
+Add `pi` to the sudoers, so that you can run sudo commands without having to be root (so that all the paths to your programs are unchanged).
 
 ```
-$ sudo crontab -e
+$ sudo visudo
+```
+
+Then add this line:
+
+```
+pi      ALL=(ALL:ALL) ALL
+```
+
+Then open up the `pi` crontab
+
+```
+$ crontab -e
 ```
 
 And add the following line:
