@@ -5,6 +5,7 @@ import re
 import json
 import time
 import os.path 
+import os
 import subprocess
 import requests
 
@@ -15,6 +16,8 @@ app = Flask(__name__, static_url_path='')
 
 def id_generator(size=6, chars=string.ascii_lowercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
+
+os.chdir('/home/pi/raspberry-pi-turnkey')
 
 wpa_conf = """country=GB
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
@@ -64,6 +67,7 @@ if __name__ == "__main__":
     if not os.path.isfile('status.json'):
         with open('status.json','w') as f:
             f.write(json.dumps(s))
+        
     else:
         s = json.load(open('status.json'))
 
