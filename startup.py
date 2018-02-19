@@ -1,4 +1,6 @@
 import subprocess
+import string
+import random
 import re
 import json
 import time
@@ -6,6 +8,9 @@ import os.path
 
 from flask import Flask, request, send_from_directory,jsonify, render_template
 app = Flask(__name__, static_url_path='')
+
+def id_generator(size=6, chars=string.ascii_lowercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
 
 wpa_conf = """country=GB
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
@@ -40,9 +45,15 @@ def signin():
     with open('status.json','w') as f:
         f.write(json.dumps({'status':'disconnected'}))
     subprocess.Popen(["./disable_ap.sh"])
+    piid = open('pi.id','r').read().strip()
     return render_template('index.html', message="Please wait 2 minutes and check to see if 'ConnectToConnect' is still available. If it is not, then it is online.")
 
 if __name__ == "__main__":
+    if not os.path.isfile('pi.id'):
+        with open('pi.id','w') as f:
+            f.write(id_generator())
+    piid = open('pi.id','r').read().strip()
+    print(piid)
     time.sleep(15)
     # get status
     s = {'status':'disconnected'}
