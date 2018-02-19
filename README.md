@@ -143,6 +143,7 @@ pi      ALL=(ALL:ALL) ALL
 
 (_Sidenote:_ I save an image `intermediate.img` at this point so its easy to go back)
 
+
 ### Startup server on boot
 
 Open up the `rc.local`

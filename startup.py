@@ -94,5 +94,7 @@ if __name__ == "__main__":
         r = requests.post("https://snaptext.live",data=json.dumps({"message":"Your Pi is online at {}".format(ipaddress),"to":piid,"from":"Raspberry Pi Turnkey"}))
         print(r.json())
         subprocess.Popen("./startup.sh")
+        while True:
+            sleep(60000)
     else:
         app.run(host="0.0.0.0",port=80)
