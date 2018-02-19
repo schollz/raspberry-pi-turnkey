@@ -127,7 +127,7 @@ $ echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' | sudo tee --append /etc/defaul
 $ sudo systemctl start hostapd && sudo systemctl start dnsmasq
 ```
 
-(_Sidenote:_ I save an image `intermediate.img` at this point so its easy to go back.)
+### Add `pi` to sudoers
 
 Add `pi` to the sudoers, so that you can run sudo commands without having to be root (so that all the paths to your programs are unchanged).
 
@@ -141,7 +141,11 @@ Then add this line:
 pi      ALL=(ALL:ALL) ALL
 ```
 
-Then open up the `rc.local`
+(_Sidenote:_ I save an image `intermediate.img` at this point so its easy to go back)
+
+### Startup server on boot
+
+Open up the `rc.local`
 
 ```
 $ sudo nano /etc/rc.local
