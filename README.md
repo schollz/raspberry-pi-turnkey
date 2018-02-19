@@ -139,16 +139,16 @@ Then add this line:
 pi      ALL=(ALL:ALL) ALL
 ```
 
-Then open up the `pi` crontab
+Then open up the `rc.local`
 
 ```
-$ crontab -e
+$ sudo nano /etc/rc.local
 ```
 
-And add the following line:
+And add the following line before `exit 0`:
 
 ```
-@reboot cd /home/pi/raspberry-pi-turnkey && /usr/bin/sudo /usr/bin/python3 startup.py
+su pi -c '/usr/bin/sudo /usr/bin/python3 /home/pi/raspberry-pi-turnkey/startup.py &'
 ```
 
 ### Shutdown the pi
