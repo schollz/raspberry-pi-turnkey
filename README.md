@@ -4,6 +4,8 @@ Have you ever wanted to setup a Raspberry Pi *without having to SSH or attach a 
 
 You can [follow the instructions below](#instructions-to-create-image) to create a turnkey image, or you can just download my latest one at [https://raspberry-pi-turnkey.schollz.com/2018-02-17-turnkey.img](https://raspberry-pi-turnkey.schollz.com/2018-02-17-turnkey.img) (3GB) and [follow the typical flashing instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md). 
 
+[![Support](https://img.shields.io/badge/donate-$5-brown.svg)](https://www.paypal.me/ZackScholl/5.00)
+
 # Usage 
 
 Once you boot the Pi with this image, you will see a WiFi AP named "ConnectToConnect" (password same). Connect to it and navigate to `192.168.4.1` where you'll see a login form.
