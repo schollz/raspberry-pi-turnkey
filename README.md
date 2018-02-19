@@ -151,15 +151,17 @@ And add the following line:
 @reboot cd /home/pi/raspberry-pi-turnkey && /usr/bin/sudo /usr/bin/python3 startup.py
 ```
 
-### Reboot the Pi
+### Shutdown the pi
+
+Shutdown the Raspberry Pi and do not start it up until you write the image. Otherwise the unique ID that is generated will be the same for all the images.
 
 ```
-$ sudo reboot now
+$ sudo shutdown now
 ```
-
-The Pi will reboot itself twice, please be patient when it does this. At this point you should be able to see the "ConnectToConnect" AP address.
 
 ## 3. Resize Raspberry Pi SD image
+
+
 
 If you don't want to resize the image, you can just write the entire image file to your computer and use that from here on. If you do want to resize (especially useful if you are installing on a 16GB card and want to flash onto a smaller card), follow these instructions.
 
