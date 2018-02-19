@@ -2,7 +2,7 @@
 
 Have you ever wanted to setup a Raspberry Pi *without having to SSH or attach a keyboard* to add your WiFi credentials? This is particularly useful when you are making a Raspberry Pi that needs to be deployed somewhere where supplying the credentials via SSH or attaching a keyboard isn't an option. 
 
-You can [follow the instructions below](#instructions-to-create-image) to create a turnkey image, or you can just download my latest one at [https://raspberry-pi-turnkey.schollz.com/2018-02-17-turnkey.img](https://raspberry-pi-turnkey.schollz.com/2018-02-17-turnkey.img) (3GB) and [follow the typical flashing instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md). 
+You can [follow the instructions below](#instructions-to-create-image) to create a turnkey image, or you can just download my latest one at [https://raspberry-pi-turnkey.schollz.com/2018-02-19-turnkey.img.zip](https://raspberry-pi-turnkey.schollz.com/2018-02-19-turnkey.img.zip) (848MB) and [follow the typical flashing instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md). 
 
 [![Support](https://img.shields.io/badge/donate-$5-brown.svg)](https://www.paypal.me/ZackScholl/5.00)
 
@@ -153,7 +153,7 @@ su pi -c '/usr/bin/sudo /usr/bin/python3 /home/pi/raspberry-pi-turnkey/startup.p
 
 ### Shutdown the pi
 
-Shutdown the Raspberry Pi and do not start it up until you write the image. Otherwise the unique ID that is generated will be the same for all the images.
+Shutdown the Raspberry Pi and do not start it up until after you write the image. Otherwise the unique ID that is generated will be the same for all the images.
 
 ```
 $ sudo shutdown now
@@ -192,8 +192,8 @@ $ sudo dd bs=4M if=/some/place/turnkey.img of=/dev/mmcblk0 conv=fsync status=pro
 
 # Roadmap
 
-- [ ] Add messaging system to send the LAN IP address once online
-- [ ] Add startup hooks for when it is online (for now just [edit these lines](https://github.com/schollz/raspberry-pi-turnkey/blob/master/startup.py#L70))
+- [x] ~~Add messaging system to send the LAN IP address once online~~ (uses https://github.com/schollz/snaptext)
+- [x] ~~Add startup hooks~~ (just edit `startup.sh`)
 
 If you'd like to contribute, please do send a PR!
 
