@@ -95,6 +95,6 @@ if __name__ == "__main__":
         print(r.json())
         subprocess.Popen("./startup.sh")
         while True:
-            sleep(60000)
+            time.sleep(60000)
     else:
         app.run(host="0.0.0.0",port=80)
