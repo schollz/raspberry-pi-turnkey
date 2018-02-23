@@ -56,9 +56,12 @@ def signin():
     return render_template('index.html', message="Please wait 2 minutes to connect. Then your IP address will show up at <a href='https://snaptext.live/{}'>snaptext.live/{}</a>.".format(piid,piid))
 
 if __name__ == "__main__":
+    # things to run the first time it boots
     if not os.path.isfile('pi.id'):
         with open('pi.id','w') as f:
             f.write(id_generator())
+        subprocess.Popen("./expand_filesystem.sh")
+        time.sleep(300)
     piid = open('pi.id','r').read().strip()
     print(piid)
     time.sleep(15)
