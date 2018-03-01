@@ -31,11 +31,21 @@ wpa_conf_default = """country=GB
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 """
-
+def getssid():
+    ssid_list = []
+    get_ssid_list = subprocess.check_output(('iw', 'dev', 'wlan0', 'scan', 'ap-force'))
+    ssids = get_ssid_list.split('\n')
+    for s in ssids:
+        s = str(s.strip())
+        if s.startswith("SSID"):
+            a = s.split(": ")
+            ssid_list.append(a[1])
+    print(ssid_list)
+    return ssid_list
 
 @app.route('/')
 def main():
-    return render_template('index.html')
+    return render_template('index.html', ssids=getssid())
 
 @app.route('/static/<path:path>')
 def send_static(path):
@@ -55,6 +65,14 @@ def signin():
     piid = open('pi.id','r').read().strip()
     return render_template('index.html', message="Please wait 2 minutes to connect. Then your IP address will show up at <a href='https://snaptext.live/{}'>snaptext.live/{}</a>.".format(piid,piid))
 
+def wificonnected():
+    result = subprocess.check_output(['iwconfig', 'wlan0'])
+    matches = re.findall(r'\"(.+?)\"', result.split(b'\n')[0].decode('utf-8'))
+    if len(matches) > 0:
+        return True
+        print("got connected to " + matches[0])
+    return False
+
 if __name__ == "__main__":
     # things to run the first time it boots
     if not os.path.isfile('pi.id'):
@@ -70,16 +88,15 @@ if __name__ == "__main__":
     if not os.path.isfile('status.json'):
         with open('status.json','w') as f:
             f.write(json.dumps(s))
-        
     else:
         s = json.load(open('status.json'))
 
     # check connection
-    result = subprocess.run(['iwconfig', 'wlan0'], stdout=subprocess.PIPE)
-    matches=re.findall(r'\"(.+?)\"',result.stdout.split(b'\n')[0].decode('utf-8'))
-    if len(matches) > 0:
+    if wificonnected():
         s['status'] = 'connected'
-        print("got connected to " + matches[0])
+    if not wificonnected():
+        if s['status'] == 'connected': # Don't change if status in status.json is hostapd
+            s['status'] = 'disconnected'
 
     with open('status.json','w') as f:
         f.write(json.dumps(s))   

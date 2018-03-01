@@ -31,14 +31,17 @@
         <label for="inputEmail">Email address</label>
       </div>
 
-      <div class="form-label-group">
-        <input name="ssid" id="inputSSID" class="form-control" placeholder="SSID" required>
-        <label for="inputPassword">SSID</label>
+      <div class="form-group">
+        <label for="inputSSID">SSID</label>
+        <select class="form-control" id="inputSSID" name="ssid">
+          {% for s in ssids %}
+          <option>{{ s }}</option>
+          {% endfor %}
+        </select>
       </div>
 
-
       <div class="form-label-group">
-        <input id="inputPassword" name="password" class="form-control" placeholder="SSID Password" required>
+        <input id="inputPassword" autocorrect="off" autocapitalize="none" name="password" class="form-control" placeholder="SSID Password" required>
         <label for="inputPassword">Password</label>
       </div>
 
