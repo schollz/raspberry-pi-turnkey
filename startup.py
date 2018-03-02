@@ -14,6 +14,21 @@ import requests
 from flask import Flask, request, send_from_directory,jsonify, render_template
 app = Flask(__name__, static_url_path='')
 
+def getssid():
+    ssid_list = []
+    get_ssid_list = subprocess.check_output(('iw', 'dev', 'wlan0', 'scan', 'ap-force'))
+    ssids = get_ssid_list.splitlines()
+    for s in ssids:
+        s = s.strip().decode('utf-8')
+        if s.startswith("SSID"):
+            a = s.split(": ")
+            try:
+                ssid_list.append(a[1])
+            except:
+                pass
+    print(ssid_list)
+    return sorted(list(set(ssid_list)))
+
 def id_generator(size=6, chars=string.ascii_lowercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
@@ -31,17 +46,8 @@ wpa_conf_default = """country=GB
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 """
-def getssid():
-    ssid_list = []
-    get_ssid_list = subprocess.check_output(('iw', 'dev', 'wlan0', 'scan', 'ap-force'))
-    ssids = get_ssid_list.splitlines()
-    for s in ssids:
-        s = str(s.strip())
-        if s.startswith("SSID"):
-            a = s.split(": ")
-            ssid_list.append(a[1])
-    print(ssid_list)
-    return ssid_list
+
+
 
 @app.route('/')
 def main():
