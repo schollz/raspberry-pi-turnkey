@@ -34,7 +34,7 @@ update_config=1
 def getssid():
     ssid_list = []
     get_ssid_list = subprocess.check_output(('iw', 'dev', 'wlan0', 'scan', 'ap-force'))
-    ssids = get_ssid_list.split('\n')
+    ssids = get_ssid_list.splitlines()
     for s in ssids:
         s = str(s.strip())
         if s.startswith("SSID"):
