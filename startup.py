@@ -7,8 +7,7 @@ import time
 import os.path 
 import os
 import subprocess
-import requests
-
+import socket
 
 import requests
 from flask import Flask, request, send_from_directory,jsonify, render_template
@@ -115,8 +114,14 @@ if __name__ == "__main__":
         subprocess.Popen("./enable_ap.sh")
     elif s['status'] == 'connected':
         piid = open('pi.id','r').read().strip()
-        result = subprocess.run(['hostname', '-I'], stdout=subprocess.PIPE)
-        ipaddress =  result.stdout.strip().split(b' ')[-1].decode('utf-8')
+        
+        # get ip address
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8",80))
+        ipaddress = s.getsockname()[0]
+        s.close()
+
+        # alert user on snaptext
         r = requests.post("https://snaptext.live",data=json.dumps({"message":"Your Pi is online at {}".format(ipaddress),"to":piid,"from":"Raspberry Pi Turnkey"}))
         print(r.json())
         subprocess.Popen("./startup.sh")
