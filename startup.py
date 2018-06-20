@@ -62,7 +62,7 @@ def redirect204():
 def applecaptive():
     return redirect("http://192.168.4.1", code=302)
 
-# Not working for Windows!
+# Not working for Windows, needs work!
 @app.route('/ncsi.txt')
 def windowscaptive():
     return redirect("http://192.168.4.1", code=302)
@@ -86,8 +86,8 @@ def check_cred(ssid, password):
     with open(testconf, 'w') as f:
         f.write(result)
 
-    def disable_ap(disable):
-        if disable:
+    def stop_ap(stop):
+        if stop:
             # Services need to be stopped to free up wlan0 interface
             print subprocess.check_output(['systemctl', "stop", "hostapd", "dnsmasq", "dhcpcd"])
         else:
@@ -99,7 +99,7 @@ def check_cred(ssid, password):
     fail = "pre-shared key may be incorrect"
     success = "WPA: Key negotiation completed"
 
-    disable_ap(True)
+    stop_ap(True)
 
     result = subprocess.check_output(['wpa_supplicant',
                                       "-Dnl80211",
@@ -128,7 +128,7 @@ def check_cred(ssid, password):
         pid = int(pid.strip())
         os.kill(pid, signal.SIGTERM)
 
-    disable_ap(False) # Reenable services
+    stop_ap(False) # Restart services
     return valid_psk
 
 @app.route('/static/<path:path>')
@@ -148,7 +148,7 @@ def signin():
     print(email, ssid, password)
     valid_psk = check_cred(ssid, password)
     if not valid_psk:
-        # Will not come here but we need to break at this point
+        # User will not see this because they will be disconnected but we need to break here anyway
         return render_template('ap.html', message="Wrong password!")
 
     with open('wpa.conf', 'w') as f:
