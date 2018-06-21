@@ -201,8 +201,13 @@ $ sudo dd bs=4M if=/some/place/turnkey.img of=/dev/mmcblk0 conv=fsync status=pro
 
 - [x] ~~Add messaging system to send the LAN IP address once online~~ (uses https://github.com/schollz/snaptext)
 - [x] ~~Add startup hooks~~ (just edit `startup.sh`)
+- [ ] connect immediately to wifi and disable hostapd without rebooting
 
 If you'd like to contribute, please do send a PR!
+
+# Thanks
+
+Thanks to [@ilirb](https://github.com/ilirb) for checking if passphrase is correct before rebooting!
 
 # License 
 
