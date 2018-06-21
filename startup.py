@@ -89,11 +89,11 @@ def check_cred(ssid, password):
     def stop_ap(stop):
         if stop:
             # Services need to be stopped to free up wlan0 interface
-            print subprocess.check_output(['systemctl', "stop", "hostapd", "dnsmasq", "dhcpcd"])
+            print(subprocess.check_output(['systemctl', "stop", "hostapd", "dnsmasq", "dhcpcd"]))
         else:
-            print subprocess.check_output(['systemctl', "restart", "dnsmasq", "dhcpcd"])
+            print(subprocess.check_output(['systemctl', "restart", "dnsmasq", "dhcpcd"]))
             time.sleep(15)
-            print subprocess.check_output(['systemctl', "restart", "hostapd"])
+            print(subprocess.check_output(['systemctl', "restart", "hostapd"]))
 
     # Sentences to check for
     fail = "pre-shared key may be incorrect"
