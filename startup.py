@@ -16,7 +16,11 @@ app = Flask(__name__, static_url_path='')
 currentdir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(currentdir)
 
+ssid_list = []
 def getssid():
+    global ssid_list
+    if len(ssid_list) > 0:
+        return ssid_list
     ssid_list = []
     get_ssid_list = subprocess.check_output(('iw', 'dev', 'wlan0', 'scan', 'ap-force'))
     ssids = get_ssid_list.splitlines()
@@ -29,7 +33,8 @@ def getssid():
             except:
                 pass
     print(ssid_list)
-    return sorted(list(set(ssid_list)))
+    ssid_list = sorted(list(set(ssid_list)))
+    return ssid_list
 
 def id_generator(size=6, chars=string.ascii_lowercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
@@ -84,7 +89,7 @@ def check_cred(ssid, password):
     # Generate temp wpa.conf
     result = subprocess.check_output(['wpa_passphrase', ssid, password])
     with open(testconf, 'w') as f:
-        f.write(result)
+        f.write(result.decode('utf-8'))
 
     def stop_ap(stop):
         if stop:
