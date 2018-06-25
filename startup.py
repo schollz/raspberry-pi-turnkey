@@ -57,7 +57,7 @@ update_config=1
 @app.route('/')
 def main():
     piid = open('pi.id', 'r').read().strip()
-    return render_template('index.html', ssids=getssid(), message="Once connected you'll find IP address @ <a href='https://snaptext.live/{}'>snaptext.live/{}</a>.".format(piid,piid))
+    return render_template('index.html', ssids=getssid(), message="Once connected you'll find IP address @ <a href='https://snaptext.live/{}' target='_blank'>snaptext.live/{}</a>.".format(piid,piid))
 
 # Captive portal when connected with iOS or Android
 @app.route('/generate_204')
