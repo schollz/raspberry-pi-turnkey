@@ -2,13 +2,13 @@
 
 Have you ever wanted to setup a Raspberry Pi *without having to SSH or attach a keyboard* to add your WiFi credentials? This is particularly useful when you are making a Raspberry Pi that needs to be deployed somewhere where supplying the credentials via SSH or attaching a keyboard isn't an option. Or it could be useful if you take your Pi to a friend's house and they don't have ethernet cables or extra keyboards+monitors to put your friend's WiFi credentials onto the Pi. With this image base you don't ever need to modify a `wpa_supplicant` with SSH/terminal/PiBakery again!
 
-You can [follow the instructions below](#instructions-to-create-image) to create a turnkey image, or you can just download my latest one at [raspberry-pi-turnkey.schollz.com/2018-03-02-turnkey.zip](https://raspberry-pi-turnkey.schollz.com/2018-03-02-turnkey.zip) ([v1.2.0](https://github.com/schollz/raspberry-pi-turnkey/releases/tag/v1.2.0), 829MB) and [follow the typical flashing instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md). 
+You can [follow the instructions below](#instructions-to-create-image) to create a turnkey image, or you can just download my latest one at [raspberry-pi-turnkey.schollz.com/2018-06-25-turnkey-1.3.zip](https://raspberry-pi-turnkey.schollz.com/2018-06-25-turnkey-1.3.img.zip) ([v1.3.0](https://github.com/schollz/raspberry-pi-turnkey/releases/tag/v1.3.0), 982MB) and [follow the typical flashing instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md). 
 
 [![Support](https://img.shields.io/badge/donate-$5-brown.svg)](https://www.paypal.me/ZackScholl/5.00)
 
 # Usage 
 
-Once you boot the Pi with this image, you will see a WiFi AP named "ConnectToConnect" (password same). Connect to it and navigate to `192.168.4.1` where you'll see a login form.
+Once you boot the Pi with this image, wait about 10 minutes for the Pi to reformat the drive and start up the web server. Then you will see a WiFi AP named "ConnectToConnect" (password same). Connect to it and your browser should automatically redirect you to a sign-in page. If not, navigate to `192.168.4.1` where you'll see a login form. 
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/6550035/36927004-9dd66774-1e2f-11e8-941a-aa192005b2d6.png"/>
