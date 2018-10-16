@@ -5,7 +5,6 @@ import random
 import re
 import json
 import time
-import os.path
 import os
 import socket
 import requests
