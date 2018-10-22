@@ -131,10 +131,10 @@ def check_credentials(ssid, password):
         Boolean
     """
 
-    wpadir = currentdir + '/wpa/'
-    testconf = wpadir + 'test.conf'
-    wpalog = wpadir + 'wpa.log'
-    wpapid = wpadir + 'wpa.pid'
+    wpadir = os.path.join(currentdir, 'wpa')
+    testconf = os.path.join(wpadir, 'test.conf')
+    wpalog = os.path.join(wpadir, 'wpa.log')
+    wpapid = os.path.join(wpadir, 'wpa.pid')
 
     if not os.path.exists(wpadir):
         os.mkdir(wpadir)
