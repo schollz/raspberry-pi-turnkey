@@ -56,7 +56,7 @@ update_config=1
 @app.route('/')
 def main():
     piid = open('pi.id', 'r').read().strip()
-    return render_template('index.html', ssids=getssid(), message="Once connected you'll find IP address @ <a href='https://snaptext.live/{}' target='_blank'>snaptext.live/{}</a>.".format(piid,piid))
+    return render_template('index.html', ssids=getssid())
 
 # Captive portal when connected with iOS or Android
 @app.route('/generate_204')
@@ -162,7 +162,7 @@ def signin():
         f.write(json.dumps({'status':'disconnected'}))
     subprocess.Popen(["./disable_ap.sh"])
     piid = open('pi.id', 'r').read().strip()
-    return render_template('index.html', message="Please wait 2 minutes to connect. Then your IP address will show up at <a href='https://snaptext.live/{}'>snaptext.live/{}</a>.".format(piid,piid))
+    return render_template('index.html', message="Please wait 2 minutes to connect.")
 
 def wificonnected():
     result = subprocess.check_output(['iwconfig', 'wlan0'])
@@ -215,9 +215,7 @@ if __name__ == "__main__":
         ipaddress = s.getsockname()[0]
         s.close()
 
-        # alert user on snaptext
-        r = requests.post("https://snaptext.live",data=json.dumps({"message":"Your Pi is online at {}".format(ipaddress),"to":piid,"from":"Raspberry Pi Turnkey"}))
-        print(r.json())
+        # Run the startup script
         subprocess.Popen("./startup.sh")
         while True:
             time.sleep(60000)

@@ -16,8 +16,6 @@ Once you boot the Pi with this image, wait about 10 minutes for the Pi to reform
 
 When the WiFi credentials are entered onto the login form, the Pi will modify its internal `wpa_supplicant` to conform to them so that it will be connected to the net. The Pi will then reboot itself using those WiFi credentials. If the credentials are not correct, then the Pi will reboot back into the AP mode to allow you to re-enter them again.
 
-Once connected, you can recieve a message with the LAN IP for your Pi at https://snaptext.live (the specific URL will be given to you when you enter in the credentials to the form).
-
 _Note:_ The Raspberry Pi is **not** a fast computer. When you see the AP and connect to it, it may take up to a minute for the page at `192.168.4.1` to appear. Also, if you enter the wrong WiFi credentials, it will have to reboot twice to reset the Pi to allow you to enter the credentials again. So try to enter them right the first time!
 
 # How does it work?
@@ -199,7 +197,6 @@ $ sudo dd bs=4M if=/some/place/turnkey.img of=/dev/mmcblk0 conv=fsync status=pro
 
 # Roadmap
 
-- [x] ~~Add messaging system to send the LAN IP address once online~~ (uses https://github.com/schollz/snaptext)
 - [x] ~~Add startup hooks~~ (just edit `startup.sh`)
 - [ ] connect immediately to wifi and disable hostapd without rebooting
 
